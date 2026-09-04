@@ -1,0 +1,333 @@
+:host {
+    display: block;
+    font-family: 'Salesforce Sans', Arial, sans-serif;
+}
+
+/* ── Toolbar ── */
+.gantt-toolbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 8px 12px;
+    background: #f3f2f2;
+    border-bottom: 1px solid #dddbda;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+.toolbar-left {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.view-toggle {
+    display: flex;
+    border: 1px solid #dddbda;
+    border-radius: 4px;
+    overflow: hidden;
+}
+
+.view-btn {
+    padding: 4px 14px;
+    background: white;
+    border: none;
+    border-right: 1px solid #dddbda;
+    cursor: pointer;
+    font-size: 13px;
+    color: #0176d3;
+    line-height: 1.6;
+}
+
+.view-btn:last-child {
+    border-right: none;
+}
+
+.view-btn.active {
+    background: #0176d3;
+    color: white;
+}
+
+.toolbar-btn {
+    padding: 4px 12px;
+    background: white;
+    border: 1px solid #dddbda;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 13px;
+    color: #0176d3;
+    line-height: 1.6;
+}
+
+.toolbar-btn:hover {
+    background: #f3f2f2;
+}
+
+.date-label {
+    font-size: 14px;
+    font-weight: 600;
+    color: #3e3e3c;
+    margin-left: 4px;
+}
+
+/* ── Scroll area ── */
+.gantt-scroll-area {
+    overflow: auto;
+    max-height: calc(100vh - 100px);
+    border: 1px solid #dddbda;
+    background: white;
+}
+
+.gantt-inner {
+    display: inline-block;
+    min-width: 100%;
+}
+
+/* ── Header row (sticky top) ── */
+.gantt-header-row {
+    display: flex;
+    position: sticky;
+    top: 0;
+    z-index: 10;
+    background: #f3f2f2;
+    border-bottom: 2px solid #dddbda;
+    min-width: max-content;
+}
+
+/* ── Resource column (sticky left) ── */
+.res-col {
+    min-width: 180px;
+    width: 180px;
+    flex-shrink: 0;
+    padding: 8px 12px;
+    border-right: 2px solid #dddbda;
+    display: flex;
+    align-items: center;
+    box-sizing: border-box;
+}
+
+.sticky-col {
+    position: sticky;
+    left: 0;
+    z-index: 5;
+    background: inherit;
+}
+
+.gantt-header-row .sticky-col {
+    z-index: 11;
+    background: #f3f2f2;
+}
+
+.header-cell {
+    font-size: 13px;
+    font-weight: 600;
+    color: #3e3e3c;
+}
+
+/* ── Day view header ── */
+.time-hdr-area {
+    display: flex;
+}
+
+.time-slot-hdr {
+    min-width: 80px;
+    width: 80px;
+    flex-shrink: 0;
+    padding: 8px 4px;
+    font-size: 12px;
+    color: #706e6b;
+    border-right: 1px solid #e0e0e0;
+    box-sizing: border-box;
+}
+
+/* ── Week view header ── */
+.week-hdr-area {
+    display: flex;
+}
+
+.week-day-header {
+    min-width: 140px;
+    width: 140px;
+    flex-shrink: 0;
+    padding: 6px 8px;
+    border-right: 1px solid #dddbda;
+    text-align: center;
+    box-sizing: border-box;
+}
+
+.week-day-header.today {
+    background: #e8f4fd;
+}
+
+.week-day-name {
+    font-size: 11px;
+    color: #706e6b;
+}
+
+.week-date-num {
+    font-size: 13px;
+    font-weight: 600;
+    color: #3e3e3c;
+}
+
+.week-day-header.today .week-date-num {
+    color: #0176d3;
+}
+
+/* ── Territory header ── */
+.territory-hdr-row {
+    display: flex;
+    background: #f9f9f9;
+    border-top: 1px solid #dddbda;
+    border-bottom: 1px solid #dddbda;
+    min-width: max-content;
+}
+
+.territory-name-cell {
+    font-size: 13px;
+    font-weight: 700;
+    color: #0176d3;
+    background: #f9f9f9;
+}
+
+.territory-hdr-fill {
+    flex: 1;
+    min-width: 880px;
+    background: #f9f9f9;
+}
+
+/* ── Resource data row ── */
+.res-data-row {
+    display: flex;
+    align-items: stretch;
+    border-bottom: 1px solid #f0eeee;
+    min-height: 44px;
+    min-width: max-content;
+}
+
+.res-data-row:hover {
+    background: #fafaf9;
+}
+
+.res-data-row:hover .res-col {
+    background: #fafaf9;
+}
+
+.res-name-cell {
+    font-size: 13px;
+    color: #3e3e3c;
+    background: white;
+}
+
+/* ── Day view time area ── */
+.day-time-area {
+    position: relative;
+    min-width: 880px;
+    flex: 1;
+    height: 44px;
+    background-image: linear-gradient(to right, #e0e0e0 1px, transparent 1px);
+    background-size: 80px 100%;
+}
+
+/* ── SA block (day view) ── */
+.sa-block {
+    position: absolute;
+    top: 6px;
+    height: calc(100% - 12px);
+    border-radius: 3px;
+    background: #0176d3;
+    color: white;
+    font-size: 11px;
+    overflow: hidden;
+    padding: 0 4px;
+    display: flex;
+    align-items: center;
+    cursor: default;
+    box-sizing: border-box;
+    white-space: nowrap;
+    min-width: 4px;
+}
+
+.sa-block:hover {
+    background: #014486;
+}
+
+.sa-block-label {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    pointer-events: none;
+}
+
+/* ── Week view cells ── */
+.week-cells-area {
+    display: flex;
+    flex: 1;
+    align-items: stretch;
+}
+
+.week-day-cell {
+    min-width: 140px;
+    width: 140px;
+    flex-shrink: 0;
+    padding: 4px;
+    border-right: 1px solid #e0e0e0;
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    min-height: 44px;
+    box-sizing: border-box;
+}
+
+/* ── SA chip (week view) ── */
+.sa-chip {
+    background: #e8f4fd;
+    border: 1px solid #a9c8e8;
+    border-left: 3px solid #0176d3;
+    border-radius: 3px;
+    padding: 2px 6px;
+    cursor: default;
+    overflow: hidden;
+}
+
+.sa-chip:hover {
+    background: #d1e8f7;
+}
+
+.sa-chip-label {
+    font-size: 11px;
+    color: #0176d3;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    display: block;
+}
+
+/* ── Misc ── */
+.loading-area {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 200px;
+}
+
+.error-area {
+    padding: 16px;
+    background: #ffeef2;
+    border: 1px solid #f05a72;
+    border-radius: 4px;
+    margin: 8px;
+}
+
+.error-text {
+    color: #ba0517;
+    font-size: 13px;
+    margin: 0;
+}
+
+.empty-state {
+    padding: 32px;
+    text-align: center;
+    color: #706e6b;
+    font-size: 14px;
+}

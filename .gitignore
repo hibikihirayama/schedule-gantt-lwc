@@ -1,0 +1,7 @@
+.sf/
+.sfdx/
+.localdevserver/
+deploy-options.json
+**/lwc/jsconfig.json
+node_modules/
+.DS_Store

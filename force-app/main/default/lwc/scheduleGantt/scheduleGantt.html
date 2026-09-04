@@ -1,0 +1,135 @@
+<template>
+    <div class="gantt-wrapper">
+        <!-- Toolbar -->
+        <div class="gantt-toolbar">
+            <div class="toolbar-left">
+                <div class="view-toggle">
+                    <button class={dayViewClass} onclick={handleDayView}>1日</button>
+                    <button class={weekViewClass} onclick={handleWeekView}>週</button>
+                </div>
+                <button class="toolbar-btn" onclick={handleToday}>今日</button>
+                <lightning-button-icon
+                    icon-name="utility:chevronleft"
+                    variant="border-filled"
+                    size="small"
+                    alternative-text="前へ"
+                    onclick={handlePrev}>
+                </lightning-button-icon>
+                <lightning-button-icon
+                    icon-name="utility:chevronright"
+                    variant="border-filled"
+                    size="small"
+                    alternative-text="次へ"
+                    onclick={handleNext}>
+                </lightning-button-icon>
+                <span class="date-label">{dateLabel}</span>
+            </div>
+            <div class="toolbar-right">
+                <lightning-button-icon
+                    icon-name="utility:refresh"
+                    variant="border-filled"
+                    size="small"
+                    alternative-text="更新"
+                    onclick={handleRefresh}>
+                </lightning-button-icon>
+            </div>
+        </div>
+
+        <!-- Loading -->
+        <template if:true={isLoading}>
+            <div class="loading-area">
+                <lightning-spinner alternative-text="読み込み中" size="medium"></lightning-spinner>
+            </div>
+        </template>
+
+        <!-- Error -->
+        <template if:true={hasError}>
+            <div class="error-area">
+                <p class="error-text">{errorMessage}</p>
+            </div>
+        </template>
+
+        <!-- Gantt body -->
+        <template if:false={isLoading}>
+            <div class="gantt-scroll-area">
+                <div class="gantt-inner">
+
+                    <!-- Header row -->
+                    <div class="gantt-header-row">
+                        <div class="res-col sticky-col header-cell">
+                            リソース ({resourceCount})
+                        </div>
+                        <!-- Day view header: hour slots -->
+                        <template if:true={isDayView}>
+                            <div class="time-hdr-area">
+                                <template for:each={timeSlots} for:item="slot">
+                                    <div key={slot.key} class="time-slot-hdr">{slot.label}</div>
+                                </template>
+                            </div>
+                        </template>
+                        <!-- Week view header: day columns -->
+                        <template if:false={isDayView}>
+                            <div class="week-hdr-area">
+                                <template for:each={weekDays} for:item="day">
+                                    <div key={day.key} class={day.headerClass}>
+                                        <div class="week-day-name">{day.dayName}</div>
+                                        <div class="week-date-num">{day.dateLabel}</div>
+                                    </div>
+                                </template>
+                            </div>
+                        </template>
+                    </div>
+
+                    <!-- Territory groups -->
+                    <template if:true={hasTerritories}>
+                        <template for:each={territories} for:item="territory">
+                            <div key={territory.id}>
+                                <!-- Territory header -->
+                                <div class="territory-hdr-row">
+                                    <div class="res-col sticky-col territory-name-cell">{territory.name}</div>
+                                    <div class="territory-hdr-fill"></div>
+                                </div>
+                                <!-- Resource rows -->
+                                <template for:each={territory.resources} for:item="resource">
+                                    <div key={resource.resourceId} class="res-data-row">
+                                        <div class="res-col sticky-col res-name-cell">{resource.name}</div>
+                                        <!-- Day view: Gantt time area -->
+                                        <template if:true={isDayView}>
+                                            <div class="day-time-area">
+                                                <template for:each={resource.dayBlocks} for:item="block">
+                                                    <div key={block.id} class="sa-block" style={block.style} title={block.tooltip}>
+                                                        <span class="sa-block-label">{block.label}</span>
+                                                    </div>
+                                                </template>
+                                            </div>
+                                        </template>
+                                        <!-- Week view: 7-day cells -->
+                                        <template if:false={isDayView}>
+                                            <div class="week-cells-area">
+                                                <template for:each={resource.dayCells} for:item="cell">
+                                                    <div key={cell.dayKey} class="week-day-cell">
+                                                        <template for:each={cell.appointments} for:item="apt">
+                                                            <div key={apt.id} class="sa-chip" title={apt.tooltip}>
+                                                                <span class="sa-chip-label">{apt.label}</span>
+                                                            </div>
+                                                        </template>
+                                                    </div>
+                                                </template>
+                                            </div>
+                                        </template>
+                                    </div>
+                                </template>
+                            </div>
+                        </template>
+                    </template>
+
+                    <!-- Empty state -->
+                    <template if:false={hasTerritories}>
+                        <div class="empty-state">表示するリソースがありません</div>
+                    </template>
+
+                </div>
+            </div>
+        </template>
+    </div>
+</template>
